@@ -1,0 +1,90 @@
+<body>
+{{> mainContainer}}
+</body>
+
+
+<template name="mainContainer">
+    <div class="app">
+        <header>
+            <div class="app-bar">
+                <div class="app-header">
+                    <h1>📝️ To Do List {{incompleteCount}}</h1>
+                </div>
+            </div>
+        </header>
+
+        <div class="main">
+        {{#if isUserLogged}}
+
+            {{> form }}
+            {{> form_filtro state=state}}
+            {{> form_contato state=state}}
+
+            <div class="filter">
+                <button id="hide-completed-button">
+                    {{#if hideCompleted}}
+                        Show All
+                    {{else}}
+                        Hide Completed
+                    {{/if}}
+                </button>
+            </div>
+            {{#if isLoading}}
+                <div class="loading">loading...</div>
+            {{/if}}
+
+            <ul class="tasks">
+                {{#each contato}}
+                    {{> task}}
+                {{/each}}
+            </ul>
+        {{else}}
+            {{> login }}
+        {{/if}}
+        </div>
+    </div>
+
+</template>
+
+<template name="form">
+    <form class="task-form js-taskInsert">
+        <input type="text" name="titulo" placeholder="Nome" />
+        <input type="text" name="text" placeholder="Video" />
+        <input type="text" name="descricao" placeholder="descricao" />
+        <button type="submit">Add Task</button>
+    </form>
+</template>
+
+<template name="form_filtro">
+    <form class="task-form js-taskFiltro">
+        <input type="text" name="titulo" placeholder="Título" />
+        <input type="text" name="descricao" placeholder="Descricao"/>
+        <button type='submit'>filtrar</button>
+
+    </form>
+</template>
+
+<template name="form_contato">
+    <form class="task-form js-taskContato">
+        <input type="number" id="campoTelefone" name="telefone" placeholder="(xx) xxxx-xxxxx" />
+        <input type="text"  name="email" placeholder="Email" />
+        <script>
+        </script>
+        <button type="submit">Cadastrar</button>
+        <script>
+            jQuery(function ($){
+                $("#campoTelefone").mask("(99) 999-9999");
+            });
+        </script>
+    </form>
+</template>
+
+
+
+
+
+
+
+
+
+
